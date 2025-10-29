@@ -21,6 +21,11 @@ public class EmployeeServiceImpl implements IEmployeeService {
 		
 		return empRepo.findAll();
 	}
+
+	@Override
+	public EmployeeEntity insertEmployeRecord(EmployeeEntity emp) {
+		return empRepo.save(emp);
+	}
 	
 	
 	

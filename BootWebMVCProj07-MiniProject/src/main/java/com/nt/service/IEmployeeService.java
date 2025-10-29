@@ -8,4 +8,6 @@ public interface IEmployeeService {
 
 	
 	public List<EmployeeEntity> getAllEmployee();
+
+	public  EmployeeEntity insertEmployeRecord(EmployeeEntity emp);
 }
