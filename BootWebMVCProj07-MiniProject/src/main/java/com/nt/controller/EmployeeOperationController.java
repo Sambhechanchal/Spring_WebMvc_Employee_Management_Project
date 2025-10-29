@@ -3,14 +3,18 @@ package com.nt.controller;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.nt.model.EmployeeEntity;
 import com.nt.service.IEmployeeService;
+import com.nt.vo.EmployeeVO;
 
 @Controller
 public class EmployeeOperationController {
@@ -29,30 +33,59 @@ public class EmployeeOperationController {
 		List<EmployeeEntity> allEmployee = empService.getAllEmployee();
 		
 		// add to model attributes
-		
 		map.put("empList", allEmployee);
+		
 		// return LVN
 		return "show_report";
 	}
 	
 	
 	@GetMapping("/add")
-	public String addEmployee(Map<String, Object> map) {
+	public String showRegisterEmployeePage(Map<String, Object> map) {
 		map.put("emp", new EmployeeEntity());
 		// return LVN
 		return "register_employee";
 	}
 	
 	@PostMapping("/add")
-	public String registerEmployee(@ModelAttribute("emp") EmployeeEntity emp, Map<String , Object> map) {
+	public String registerEmployee(@ModelAttribute("emp") EmployeeVO emp, RedirectAttributes attrs) {
 		
 		// user service
-		EmployeeEntity insertEmployeRecord = empService.insertEmployeRecord(emp);
-		//map.put("empList", insertEmployeRecord);
+		String msg = empService.insertEmployeRecord(emp);
+
+		attrs.addFlashAttribute("resultMsg",msg);
+		
 		return "redirect:report";
 	}
 	
+	@GetMapping("/edit")
+	public String showEditPage(@ModelAttribute("emp") EmployeeVO empvo, @RequestParam("empno") Long empno) {
+		
+		// use Service
+		EmployeeEntity employee = empService.getEmployee(empno);
+		
+		BeanUtils.copyProperties(employee, empvo);
 	
+		return "edit_employee";
+	}
+	
+	@PostMapping("/edit")
+	public String EditEmployee(RedirectAttributes attrs, @ModelAttribute("emp") EmployeeVO empVo) {
+		
+		// use Service
+		String msg = empService.updateEmployee(empVo);
+		
+		// add object to rediect attributes
+		attrs.addFlashAttribute("resultMsg",msg);
+		return "redirect:report";
+	}
+	
+	@GetMapping("/delete")
+	public String getMethodName(@RequestParam("empno") Long empno, RedirectAttributes attrs) {
+		String msg = empService.deleteEmployeeById(empno);
+		attrs.addFlashAttribute("resultMsg",msg);
+		return "redirect:report";
+	}
 	
 
 }

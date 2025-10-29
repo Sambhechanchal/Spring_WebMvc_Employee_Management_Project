@@ -59,5 +59,5 @@ public class EmployeeEntity {
 	private String updatedBy;
 	
 	@Column(length=10)
-	private String activeStatus;
+	private String activeStatus="active";
 }

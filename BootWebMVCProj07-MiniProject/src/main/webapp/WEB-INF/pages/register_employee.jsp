@@ -9,7 +9,7 @@
 <body>
 <header style="display:flex; justify-content:space-around; border:1px solid black">
 <h2 style="color:green;">Welcome To Employee Management Project</h2>
-<h2> <a href="./" style="text-decoration:none;color:green;">Home</a></h2>
+<h2> <img src="images/home.jpg" width="30px" height="30px"> <a href="./" style="text-decoration:none;color:green;">Home</a></img></h2>
 </header>
 <section>
 <frm:form modelAttribute="emp">

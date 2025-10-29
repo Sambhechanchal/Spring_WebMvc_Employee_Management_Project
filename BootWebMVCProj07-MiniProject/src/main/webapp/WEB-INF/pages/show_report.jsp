@@ -10,7 +10,7 @@
 <header style="display:flex; justify-content:space-around; border:1px solid black">
 <h2 style="color:green;">Welcome To Employee Management Project</h2>
 <h2> <a href="add" style="text-decoration:none;color:green;">Add Employee<img src="images/add.jpg" width="30px" height="30px"> </a></h2>
-<h2> <a href="./" style="text-decoration:none;color:green;">Home</a></h2>
+<h2> <img src="images/home.jpg" width="30px" height="30px"> <a href="./" style="text-decoration:none;color:green;">Home</a></img></h2>
 </header>
 <section>
 <c:choose>
@@ -32,7 +32,7 @@
 <td>${emp.desg}</td>
 <td>${emp.salary}</td>
 <td><a href="edit?empno=${emp.empno}" style="text-decoration:none"> <img src="images/edit.jpg" width="30px" height="30px"> </a></td>
-<td><a href="delete?empno=${emp.empno}" style="text-decoration:none"> <img src="images/delete.jpg" width="30px" height="30px"> </a></td>
+<td><a href="delete?empno=${emp.empno}" style="text-decoration:none"> <img src="images/delete.jpg" width="30px" height="30px" onclick="return confirm('Are you wan to delete...')"> </a></td>
 </tr>
 
 </c:forEach>
@@ -43,7 +43,7 @@
 
 </c:otherwise>
 </c:choose>
-
+<h1>${resultMsg}</h1>
 </section>
 </body>
 </html>
