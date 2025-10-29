@@ -21,7 +21,7 @@
 <table border="1" cellspacing="0" align="center" bgcolor="cyan">
 
 <tr>
-<th>EmpNo</th> <th>EmpName</th><th>EmpAddrs</th><th>Salary</th><th>Desg</th>
+<th>EmpNo</th> <th>EmpName</th><th>EmpAddrs</th><th>Salary</th><th>Desg</th><th>Edit</th><th>Delete</th>
 </tr>
 
 <c:forEach var="emp" items="${empList}">
