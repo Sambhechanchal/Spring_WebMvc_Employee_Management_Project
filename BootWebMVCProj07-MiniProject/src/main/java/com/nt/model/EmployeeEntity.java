@@ -3,6 +3,8 @@ package com.nt.model;
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.Column;
@@ -22,6 +24,8 @@ import lombok.NoArgsConstructor;
 @Table(name="empProj")
 @AllArgsConstructor
 @NoArgsConstructor
+@SQLDelete(sql="update emp_Proj set active_Status ='inactive' where empno =? and update_Count=? ")
+@SQLRestriction("active_Status <> 'inactive'")
 public class EmployeeEntity {
 	
 	@Id
