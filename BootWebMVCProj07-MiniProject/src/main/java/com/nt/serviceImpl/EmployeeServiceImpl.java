@@ -1,10 +1,14 @@
 package com.nt.serviceImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.nt.model.EmployeeEntity;
@@ -66,6 +70,28 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	public EmployeeEntity getEmployee(Long empno) {
 		 EmployeeEntity entity = empRepo.findById(empno).orElseThrow(()-> new EmployeeIdNotFoundException("Invalid EmpNo"));
 		return entity;
+	}
+
+
+	@Override
+	public Page<EmployeeVO> getEmpByPage(Pageable pageable) {
+		
+		Page<EmployeeEntity> page = empRepo.findAll(pageable);
+		// copy all the page<EmployeeEntity> into list
+		List<EmployeeEntity> list = page.getContent();
+		
+		
+		List<EmployeeVO> empvolist = new ArrayList<EmployeeVO>();
+		list.forEach( entity ->{
+			
+			// create employeevo object
+			EmployeeVO empvo = new EmployeeVO();
+			BeanUtils.copyProperties(entity, empvo);
+			// we can calculate gross salary and net salary here
+			empvolist.add(empvo);
+		});
+		Page<EmployeeVO> volist= new PageImpl<EmployeeVO>(empvolist, pageable,page.getTotalElements());
+		return volist;
 	}
 
 

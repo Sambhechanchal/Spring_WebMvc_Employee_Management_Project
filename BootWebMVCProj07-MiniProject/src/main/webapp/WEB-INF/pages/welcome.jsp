@@ -10,6 +10,7 @@
 
 <h2 style="color:green;">Welcome To Employee Management Project</h2>
 <h2 style="color:green;"><a href="report">Show Report</a></h2>
+<h2 style="color:green;"><a href="pagereport">Page Report</a></h2>
 </header>
 </body>
 </html>
